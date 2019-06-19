@@ -146,7 +146,7 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PIA.DpmCtrlLib">
-      <HintPath>..\..\..\dpmsdk_swt_3.8.380.14\x86\Registered installation\Redist\Bin\PIA.DpmCtrlLib.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\dpmsdk_swt_3.8.380.14\x86\Registered installation\Redist\Bin\PIA.DpmCtrlLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
