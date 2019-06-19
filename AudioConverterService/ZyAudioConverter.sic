@@ -1,0 +1,5 @@
+﻿AppName = ZyAudioConverterService
+Connections = file(append="true", filename="c:\logs\ZyAudioConverterSrv.sil", maxparts="10", maxsize="2048", rotate="daily", reconnect="true", reconnect.interval="10")
+DefaultLevel = Verbose
+Enabled = True
+Level = Debug

@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E40D9331-ECC9-480D-8350-85DDA7CF93AC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TrackdocDbEntityFramework</RootNamespace>
+    <AssemblyName>TrackdocDbEntityFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="abstraction_log.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="account.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="accuracy.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="accuracy_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="address.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="address_country.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="address_state.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="admin_log.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="api_encounter.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="api_encounter_status.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="asp_net_role.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="asp_net_user_claim.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="asp_net_user_login.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="asp_net_user_role.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="assignment_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="athena_siu_in.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="audio.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="audio_source.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="audio_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="billing_info.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="comment.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="contact.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="demographic.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="device.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="device_platform.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="document.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="document_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="document_version.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ecw_siu_in.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ELMAH_Error.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="entity.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="entity_level.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="entity_oauth_authorization.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="entity_role.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="entity_setting_detail.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="entity_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EnumTable.cs" />
+    <Compile Include="event_code.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="event_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fax.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fax_status.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="function.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="function_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDescendantEntityNamesIds_Result.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="hold_status.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="interface_section.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="interface_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="invoice.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="job.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="job_audio.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="job_comment.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="job_priority.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="job_status.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="job_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="job_type_interface_section.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="job_type_section.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="log.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="log_priority.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="medisapien_data_path.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="medisapien_job.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="nlp_job.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="nlp_status.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="normal_text.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="oauth_client.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="oauth_client_accessible_entity.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="oauth_token.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="obj.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="patient.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="permission.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="privilege.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="relationship.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="relationship_role.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="relationship_setting_detail.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="relationship_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="role.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="role_privilege.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="setting.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="setting_detail.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="setting_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="specialty.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="speechrec_job.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="speechrec_status.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="template.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="template_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="trackdocEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>trackdocEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="trackdocEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="trackdocEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>trackdocEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="user.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user_signature.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user_type.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_get_audio_info_Result.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="workflow_step.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="work_assignment.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="work_assignment_default.cs">
+      <DependentUpon>trackdocEntities.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="trackdocEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>trackdocEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="trackdocEntities.edmx.diagram">
+      <DependentUpon>trackdocEntities.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="trackdocEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>trackdocEntities.Context.cs</LastGenOutput>
+      <DependentUpon>trackdocEntities.edmx</DependentUpon>
+    </Content>
+    <Content Include="trackdocEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>trackdocEntities.edmx</DependentUpon>
+      <LastGenOutput>trackdocEntities.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

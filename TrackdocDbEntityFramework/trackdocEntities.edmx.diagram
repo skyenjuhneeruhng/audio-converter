@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="66f4572e8fbd4b4da33417b72ee8414a" Name="Diagram1" ZoomLevel="40">
+        <EntityTypeShape EntityType="trackdocModel.abstraction_log" Width="1.5" PointX="28.75" PointY="161.375" />
+        <EntityTypeShape EntityType="trackdocModel.account" Width="1.5" PointX="7.5" PointY="186.625" />
+        <EntityTypeShape EntityType="trackdocModel.accuracy" Width="1.5" PointX="25.75" PointY="188.25" />
+        <EntityTypeShape EntityType="trackdocModel.accuracy_type" Width="1.5" PointX="5.25" PointY="232.75" />
+        <EntityTypeShape EntityType="trackdocModel.address" Width="1.5" PointX="7.5" PointY="177" />
+        <EntityTypeShape EntityType="trackdocModel.address_country" Width="1.5" PointX="5.25" PointY="203.25" />
+        <EntityTypeShape EntityType="trackdocModel.address_state" Width="1.5" PointX="5.25" PointY="212.375" />
+        <EntityTypeShape EntityType="trackdocModel.admin_log" Width="1.5" PointX="21.25" PointY="162.25" />
+        <EntityTypeShape EntityType="trackdocModel.api_encounter" Width="1.5" PointX="21.25" PointY="170.5" />
+        <EntityTypeShape EntityType="trackdocModel.api_encounter_status" Width="1.5" PointX="5.25" PointY="199.375" />
+        <EntityTypeShape EntityType="trackdocModel.asp_net_role" Width="1.5" PointX="5.25" PointY="187.5" />
+        <EntityTypeShape EntityType="trackdocModel.asp_net_user_claim" Width="1.5" PointX="5.25" PointY="236.625" />
+        <EntityTypeShape EntityType="trackdocModel.asp_net_user_login" Width="1.5" PointX="5.25" PointY="185" />
+        <EntityTypeShape EntityType="trackdocModel.asp_net_user_role" Width="1.5" PointX="5.25" PointY="255.25" />
+        <EntityTypeShape EntityType="trackdocModel.assignment_type" Width="1.5" PointX="5.25" PointY="220.75" />
+        <EntityTypeShape EntityType="trackdocModel.athena_siu_in" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="trackdocModel.audio" Width="1.5" PointX="28.5" PointY="166.625" />
+        <EntityTypeShape EntityType="trackdocModel.audio_source" Width="1.5" PointX="5.25" PointY="161.375" />
+        <EntityTypeShape EntityType="trackdocModel.audio_type" Width="1.5" PointX="5.25" PointY="152.625" />
+        <EntityTypeShape EntityType="trackdocModel.billing_info" Width="1.5" PointX="10.75" PointY="165.375" />
+        <EntityTypeShape EntityType="trackdocModel.comment" Width="1.5" PointX="5.25" PointY="172.75" />
+        <EntityTypeShape EntityType="trackdocModel.contact" Width="1.5" PointX="16" PointY="171.5" />
+        <EntityTypeShape EntityType="trackdocModel.demographic" Width="1.5" PointX="12" PointY="153.5" />
+        <EntityTypeShape EntityType="trackdocModel.device" Width="1.5" PointX="8.25" PointY="161.875" />
+        <EntityTypeShape EntityType="trackdocModel.device_platform" Width="1.5" PointX="6" PointY="166" />
+        <EntityTypeShape EntityType="trackdocModel.document" Width="1.5" PointX="23.5" PointY="148.625" />
+        <EntityTypeShape EntityType="trackdocModel.document_type" Width="1.5" PointX="5.25" PointY="126.875" />
+        <EntityTypeShape EntityType="trackdocModel.document_version" Width="1.5" PointX="5.25" PointY="139.625" />
+        <EntityTypeShape EntityType="trackdocModel.ecw_siu_in" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="trackdocModel.ELMAH_Error" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="trackdocModel.entity" Width="1.5" PointX="9.75" PointY="175.125" />
+        <EntityTypeShape EntityType="trackdocModel.entity_level" Width="1.5" PointX="5.25" PointY="119" />
+        <EntityTypeShape EntityType="trackdocModel.entity_oauth_authorization" Width="1.5" PointX="18" PointY="156" />
+        <EntityTypeShape EntityType="trackdocModel.entity_role" Width="1.5" PointX="15" PointY="161.125" />
+        <EntityTypeShape EntityType="trackdocModel.entity_setting_detail" Width="1.5" PointX="16" PointY="165.5" />
+        <EntityTypeShape EntityType="trackdocModel.entity_type" Width="1.5" PointX="5.25" PointY="239.375" />
+        <EntityTypeShape EntityType="trackdocModel.event_code" Width="1.5" PointX="7.5" PointY="200.75" />
+        <EntityTypeShape EntityType="trackdocModel.event_type" Width="1.5" PointX="5.25" PointY="257.625" />
+        <EntityTypeShape EntityType="trackdocModel.fax" Width="1.5" PointX="30.75" PointY="166.625" />
+        <EntityTypeShape EntityType="trackdocModel.fax_status" Width="1.5" PointX="5.25" PointY="135.75" />
+        <EntityTypeShape EntityType="trackdocModel.function" Width="1.5" PointX="7.5" PointY="138.5" />
+        <EntityTypeShape EntityType="trackdocModel.function_type" Width="1.5" PointX="5.25" PointY="99.25" />
+        <EntityTypeShape EntityType="trackdocModel.hold_status" Width="1.5" PointX="5.25" PointY="228.75" />
+        <EntityTypeShape EntityType="trackdocModel.interface_section" Width="1.5" PointX="7.5" PointY="195.875" />
+        <EntityTypeShape EntityType="trackdocModel.interface_type" Width="1.5" PointX="5.25" PointY="247.375" />
+        <EntityTypeShape EntityType="trackdocModel.invoice" Width="1.5" PointX="15" PointY="154.5" />
+        <EntityTypeShape EntityType="trackdocModel.job" Width="1.5" PointX="20.5" PointY="188.875" />
+        <EntityTypeShape EntityType="trackdocModel.job_audio" Width="1.5" PointX="30.75" PointY="173.125" />
+        <EntityTypeShape EntityType="trackdocModel.job_comment" Width="1.5" PointX="23.75" PointY="175.125" />
+        <EntityTypeShape EntityType="trackdocModel.job_priority" Width="1.5" PointX="5.25" PointY="243.25" />
+        <EntityTypeShape EntityType="trackdocModel.job_status" Width="1.5" PointX="5.25" PointY="224.75" />
+        <EntityTypeShape EntityType="trackdocModel.job_type" Width="1.5" PointX="13" PointY="165.5" />
+        <EntityTypeShape EntityType="trackdocModel.job_type_interface_section" Width="1.5" PointX="25.5" PointY="170.375" />
+        <EntityTypeShape EntityType="trackdocModel.job_type_section" Width="1.5" PointX="23.25" PointY="157.5" />
+        <EntityTypeShape EntityType="trackdocModel.log" Width="1.5" PointX="22.75" PointY="179.375" />
+        <EntityTypeShape EntityType="trackdocModel.log_priority" Width="1.5" PointX="5.25" PointY="216.625" />
+        <EntityTypeShape EntityType="trackdocModel.medisapien_data_path" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="trackdocModel.medisapien_job" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="trackdocModel.nlp_job" Width="1.5" PointX="27.75" PointY="173.5" />
+        <EntityTypeShape EntityType="trackdocModel.nlp_status" Width="1.5" PointX="5.25" PointY="176.625" />
+        <EntityTypeShape EntityType="trackdocModel.normal_text" Width="1.5" PointX="28.5" PointY="156.25" />
+        <EntityTypeShape EntityType="trackdocModel.oauth_client" Width="1.5" PointX="19" PointY="169.375" />
+        <EntityTypeShape EntityType="trackdocModel.oauth_client_accessible_entity" Width="1.5" PointX="18" PointY="161" />
+        <EntityTypeShape EntityType="trackdocModel.oauth_token" Width="1.5" PointX="24.25" PointY="164.625" />
+        <EntityTypeShape EntityType="trackdocModel.obj" Width="1.5" PointX="5.25" PointY="195.5" />
+        <EntityTypeShape EntityType="trackdocModel.patient" Width="1.5" PointX="5.25" PointY="156.75" />
+        <EntityTypeShape EntityType="trackdocModel.permission" Width="1.5" PointX="5.25" PointY="111.25" />
+        <EntityTypeShape EntityType="trackdocModel.privilege" Width="1.5" PointX="9.75" PointY="152.875" />
+        <EntityTypeShape EntityType="trackdocModel.relationship" Width="1.5" PointX="18.25" PointY="142.875" />
+        <EntityTypeShape EntityType="trackdocModel.relationship_role" Width="1.5" PointX="25.5" PointY="156.5" />
+        <EntityTypeShape EntityType="trackdocModel.relationship_setting_detail" Width="1.5" PointX="26.5" PointY="161.125" />
+        <EntityTypeShape EntityType="trackdocModel.relationship_type" Width="1.5" PointX="5.25" PointY="107" />
+        <EntityTypeShape EntityType="trackdocModel.role" Width="1.5" PointX="7.5" PointY="143.25" />
+        <EntityTypeShape EntityType="trackdocModel.role_privilege" Width="1.5" PointX="21" PointY="154.75" />
+        <EntityTypeShape EntityType="trackdocModel.setting" Width="1.5" PointX="10.5" PointY="140.25" />
+        <EntityTypeShape EntityType="trackdocModel.setting_detail" Width="1.5" PointX="12.75" PointY="159.125" />
+        <EntityTypeShape EntityType="trackdocModel.setting_type" Width="1.5" PointX="5.25" PointY="122.875" />
+        <EntityTypeShape EntityType="trackdocModel.specialty" Width="1.5" PointX="0.75" PointY="162.625" />
+        <EntityTypeShape EntityType="trackdocModel.speechrec_job" Width="1.5" PointX="30.75" PointY="147.375" />
+        <EntityTypeShape EntityType="trackdocModel.speechrec_status" Width="1.5" PointX="5.25" PointY="115.125" />
+        <EntityTypeShape EntityType="trackdocModel.template" Width="1.5" PointX="23.5" PointY="192.875" />
+        <EntityTypeShape EntityType="trackdocModel.template_type" Width="1.5" PointX="5.25" PointY="251.375" />
+        <EntityTypeShape EntityType="trackdocModel.user_signature" Width="1.5" PointX="5.25" PointY="103.125" />
+        <EntityTypeShape EntityType="trackdocModel.user_type" Width="1.5" PointX="5.25" PointY="148.875" />
+        <EntityTypeShape EntityType="trackdocModel.user" Width="1.5" PointX="3" PointY="145" />
+        <EntityTypeShape EntityType="trackdocModel.work_assignment" Width="1.5" PointX="20.5" PointY="181.5" />
+        <EntityTypeShape EntityType="trackdocModel.work_assignment_default" Width="1.5" PointX="12" PointY="182.625" />
+        <EntityTypeShape EntityType="trackdocModel.workflow_step" Width="1.5" PointX="13" PointY="170.875" />
+        <AssociationConnector Association="trackdocModel.FK_abstraction_log_abstractor_relationship_id" />
+        <AssociationConnector Association="trackdocModel.FK_abstraction_log_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_abstraction_log_document_id" />
+        <AssociationConnector Association="trackdocModel.FK_abstraction_log_job_id" />
+        <AssociationConnector Association="trackdocModel.FK_abstraction_log_modified_user" />
+        <AssociationConnector Association="trackdocModel.account_FK1" />
+        <AssociationConnector Association="trackdocModel.contacts_account_FK2" />
+        <AssociationConnector Association="trackdocModel.entity_account_FK1" />
+        <AssociationConnector Association="trackdocModel.FK_account_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_account_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_accuracy_accuracy_type" />
+        <AssociationConnector Association="trackdocModel.FK_accuracy_job" />
+        <AssociationConnector Association="trackdocModel.FK_accuracy_original_document" />
+        <AssociationConnector Association="trackdocModel.FK_accuracy_updated_document" />
+        <AssociationConnector Association="trackdocModel.FK_accuracy_user_created" />
+        <AssociationConnector Association="trackdocModel.FK_accuracy_user_modified" />
+        <AssociationConnector Association="trackdocModel.FK_accuracy_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_accuracy_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.entity_address_FK2" />
+        <AssociationConnector Association="trackdocModel.FK_address_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_address_mail_country" />
+        <AssociationConnector Association="trackdocModel.FK_address_mail_state" />
+        <AssociationConnector Association="trackdocModel.FK_address_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_address_phys_country" />
+        <AssociationConnector Association="trackdocModel.FK_address_phys_state" />
+        <AssociationConnector Association="trackdocModel.FK_billing_info_address" />
+        <AssociationConnector Association="trackdocModel.FK_contact_address" />
+        <AssociationConnector Association="trackdocModel.FK_address_country_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_address_country_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_address_state_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_address_state_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_Admin_Log_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_Admin_Log_Entity_Id" />
+        <AssociationConnector Association="trackdocModel.FK_admin_log_job" />
+        <AssociationConnector Association="trackdocModel.FK_admin_log_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_admin_log_oauth_client" />
+        <AssociationConnector Association="trackdocModel.FK_admin_log_relationship" />
+        <AssociationConnector Association="trackdocModel.FK_Admin_Log_User_id" />
+        <AssociationConnector Association="trackdocModel.FK_api_encounter_api_encounter_status" />
+        <AssociationConnector Association="trackdocModel.FK_api_encounter_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_api_encounter_entity_id" />
+        <AssociationConnector Association="trackdocModel.FK_api_encounter_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_api_encounter_oauth_client_id" />
+        <AssociationConnector Association="trackdocModel.FK_api_encounter_provider_relationship" />
+        <AssociationConnector Association="trackdocModel.FK_api_encounter_status_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_api_encounter_status_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_asp_net_role_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_AspNetUserClaims_Users_UserID" />
+        <AssociationConnector Association="trackdocModel.FK_AspNetUserLogins_users" />
+        <AssociationConnector Association="trackdocModel.FK_AspNetUserRoles_Users_UserID" />
+        <AssociationConnector Association="trackdocModel.FK_assignment_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_assignment_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_work_assignment_assignment_type" />
+        <AssociationConnector Association="trackdocModel.FK_work_assignment_defaults_assignment_type" />
+        <AssociationConnector Association="trackdocModel.FK_audio_audio_source" />
+        <AssociationConnector Association="trackdocModel.FK_audio_audio_type" />
+        <AssociationConnector Association="trackdocModel.FK_audio_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_audio_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_audio_relationship" />
+        <AssociationConnector Association="trackdocModel.FK_job_audio_audio" />
+        <AssociationConnector Association="trackdocModel.FK_speechrec_job_audio" />
+        <AssociationConnector Association="trackdocModel.FK_audio_source_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_audio_source_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_audio_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_audio_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_billing_info_billing_info" />
+        <AssociationConnector Association="trackdocModel.FK_billing_info_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_billing_info_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_entity_billing_info" />
+        <AssociationConnector Association="trackdocModel.FK_comment_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_comment_last_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_job_comment_comment" />
+        <AssociationConnector Association="trackdocModel.contacts_entity_FK5" />
+        <AssociationConnector Association="trackdocModel.entity_contacts_FK3" />
+        <AssociationConnector Association="trackdocModel.FK_contact_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_contact_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_contact_relationship" />
+        <AssociationConnector Association="trackdocModel.FK_contact_relationship_id" />
+        <AssociationConnector Association="trackdocModel.FK_contact_user_id" />
+        <AssociationConnector Association="trackdocModel.FK_fax_contact" />
+        <AssociationConnector Association="trackdocModel.FK_demographics_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_demographics_doucment_type" />
+        <AssociationConnector Association="trackdocModel.FK_demographics_entity" />
+        <AssociationConnector Association="trackdocModel.FK_demographics_last_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_device_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_device_device_platform" />
+        <AssociationConnector Association="trackdocModel.FK_device_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_device_users_id" />
+        <AssociationConnector Association="trackdocModel.FK_document_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_document_document_type_id" />
+        <AssociationConnector Association="trackdocModel.FK_document_document_version" />
+        <AssociationConnector Association="trackdocModel.FK_document_job" />
+        <AssociationConnector Association="trackdocModel.FK_document_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_document_template_id" />
+        <AssociationConnector Association="trackdocModel.FK_document_users_author_user_id" />
+        <AssociationConnector Association="trackdocModel.FK_document_users_owner_user_id" />
+        <AssociationConnector Association="trackdocModel.FK_fax_document" />
+        <AssociationConnector Association="trackdocModel.FK_nlp_job_document" />
+        <AssociationConnector Association="trackdocModel.FK_document_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_document_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_invoices_document_type_id" />
+        <AssociationConnector Association="trackdocModel.FK_document_version_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_document_version_modified_user" />
+        <AssociationConnector Association="trackdocModel.entity_holdStatus_FK1" />
+        <AssociationConnector Association="trackdocModel.entity_job_FK1" />
+        <AssociationConnector Association="trackdocModel.FK_entity_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_entity_entity" />
+        <AssociationConnector Association="trackdocModel.FK_entity_entity_level" />
+        <AssociationConnector Association="trackdocModel.FK_entity_entity_type" />
+        <AssociationConnector Association="trackdocModel.FK_entity_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_entity_oauth_authorization_entity" />
+        <AssociationConnector Association="trackdocModel.FK_entity_oauth_authorization_oauth_client_entity" />
+        <AssociationConnector Association="trackdocModel.FK_entity_role_entity" />
+        <AssociationConnector Association="trackdocModel.FK_entity_setting_detail_entity" />
+        <AssociationConnector Association="trackdocModel.FK_entity_specialties" />
+        <AssociationConnector Association="trackdocModel.FK_invoices_entity_id" />
+        <AssociationConnector Association="trackdocModel.FK_job_abstractor_entity" />
+        <AssociationConnector Association="trackdocModel.FK_job_editor_entity_id" />
+        <AssociationConnector Association="trackdocModel.FK_job_transcription_entity_id" />
+        <AssociationConnector Association="trackdocModel.FK_job_type_entity" />
+        <AssociationConnector Association="trackdocModel.FK_oauth_client_accessible_entity_entity" />
+        <AssociationConnector Association="trackdocModel.FK_oauth_client_entity" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_entity" />
+        <AssociationConnector Association="trackdocModel.FK_template_entity" />
+        <AssociationConnector Association="trackdocModel.FK_typing_assignment_entity" />
+        <AssociationConnector Association="trackdocModel.FK_work_assignment_defaults_assignment_entity" />
+        <AssociationConnector Association="trackdocModel.FK_work_assignment_defaults_entity" />
+        <AssociationConnector Association="trackdocModel.FK_workflow_step_entity" />
+        <AssociationConnector Association="trackdocModel.FK_entity_level_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_entity_level_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_entity_oauth_authorization_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_entity_oauth_authorization_last_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_entity_role_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_entity_role_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_entity_roles_roles" />
+        <AssociationConnector Association="trackdocModel.FK_entity_setting_detail_setting_detail" />
+        <AssociationConnector Association="trackdocModel.FK_entity_setting_detail_user_created" />
+        <AssociationConnector Association="trackdocModel.FK_entity_setting_detail_user_modified" />
+        <AssociationConnector Association="trackdocModel.FK_entity_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_entity_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.error_error_code_FK2" />
+        <AssociationConnector Association="trackdocModel.FK_event_code_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_event_code_event_type" />
+        <AssociationConnector Association="trackdocModel.FK_event_code_log_priority" />
+        <AssociationConnector Association="trackdocModel.FK_event_code_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_event_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_event_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_fax_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_fax_fax_status" />
+        <AssociationConnector Association="trackdocModel.FK_fax_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_fax_relationship" />
+        <AssociationConnector Association="trackdocModel.FK_fax_template" />
+        <AssociationConnector Association="trackdocModel.FK_fax_status_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_fax_status_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_function_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_function_function_type" />
+        <AssociationConnector Association="trackdocModel.FK_function_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_function_permissions_functions" />
+        <AssociationConnector Association="trackdocModel.FK_function_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_function_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_hold_status_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_hold_status_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_interface_section_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_interface_section_interface_type" />
+        <AssociationConnector Association="trackdocModel.FK_interface_section_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_type_interface_section_interface_section" />
+        <AssociationConnector Association="trackdocModel.FK_interface_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_interface_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_invoices_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_invoices_modified_user" />
+        <AssociationConnector Association="trackdocModel.error_job_FK1" />
+        <AssociationConnector Association="trackdocModel.FK_job_assigned_relationship_id" />
+        <AssociationConnector Association="trackdocModel.FK_job_audio_job" />
+        <AssociationConnector Association="trackdocModel.FK_job_comment_job" />
+        <AssociationConnector Association="trackdocModel.FK_job_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_job_priority" />
+        <AssociationConnector Association="trackdocModel.FK_job_job_Status" />
+        <AssociationConnector Association="trackdocModel.FK_job_job_type" />
+        <AssociationConnector Association="trackdocModel.FK_job_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_patient" />
+        <AssociationConnector Association="trackdocModel.FK_job_relationship" />
+        <AssociationConnector Association="trackdocModel.FK_job_workflow_step" />
+        <AssociationConnector Association="trackdocModel.FK_nlp_job_job" />
+        <AssociationConnector Association="trackdocModel.FK_job_audio_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_job_audio_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_job_comment_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_job_comment_last_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_job_priority_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_priority_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_status_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_status_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_type_section_job_type" />
+        <AssociationConnector Association="trackdocModel.FK_normal_text_job_type" />
+        <AssociationConnector Association="trackdocModel.FK_template_template_job_type" />
+        <AssociationConnector Association="trackdocModel.FK_job_type_interface_section_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_type_interface_section_job_type" />
+        <AssociationConnector Association="trackdocModel.FK_job_type_interface_section_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_type_section_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_job_type_section_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_log_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_log_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_log_priority_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_log_priority_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_nlp_job_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_nlp_job_last_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_nlp_job_nlp_job_status" />
+        <AssociationConnector Association="trackdocModel.FK_nlp_status_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_nlp_status_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_normal_text_author_relationship" />
+        <AssociationConnector Association="trackdocModel.FK_normal_text_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_normal_text_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_oauth_client_accessible_entity_oauth_client_entity" />
+        <AssociationConnector Association="trackdocModel.FK_oauth_client_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_oauth_client_last_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_oauth_token_oauth_client" />
+        <AssociationConnector Association="trackdocModel.FK_oauth_client_accessible_entity_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_oauth_client_accessible_entity_last_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_oauth_token_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_oauth_token_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_function_permission_obj" />
+        <AssociationConnector Association="trackdocModel.FK_obj_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_obj_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_patient_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_patient_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_function_permissions_permissions" />
+        <AssociationConnector Association="trackdocModel.FK_permission_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_permission_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_privilege_user_created" />
+        <AssociationConnector Association="trackdocModel.FK_privilege_user_modified" />
+        <AssociationConnector Association="trackdocModel.FK_Role_privilege" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_relationship_type" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_role_relationship" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_setting_detail_relationship" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_user" />
+        <AssociationConnector Association="trackdocModel.FK_template_relationship" />
+        <AssociationConnector Association="trackdocModel.FK_typing_assignment_relationship" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_role_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_role_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_roles_roles" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_setting_detail_setting_detail" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_setting_detail_user_created" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_setting_detail_user_modified" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_relationship_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_roles_relationship_type" />
+        <AssociationConnector Association="trackdocModel.FK_setting_relationship_type" />
+        <AssociationConnector Association="trackdocModel.FK_role_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_Role_FUN_REF_Role" />
+        <AssociationConnector Association="trackdocModel.FK_role_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_role_functions_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_role_functions_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_setting_detail_setting" />
+        <AssociationConnector Association="trackdocModel.FK_setting_setting_type" />
+        <AssociationConnector Association="trackdocModel.FK_setting_user_created" />
+        <AssociationConnector Association="trackdocModel.FK_setting_user_modified" />
+        <AssociationConnector Association="trackdocModel.FK_setting_detail_sub_setting" />
+        <AssociationConnector Association="trackdocModel.FK_setting_detail_user_created" />
+        <AssociationConnector Association="trackdocModel.FK_setting_detail_user_modified" />
+        <AssociationConnector Association="trackdocModel.FK_setting_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_setting_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_specialty_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_specialty_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_users_specialty" />
+        <AssociationConnector Association="trackdocModel.FK_speechrec_job_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_speechrec_job_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_speechrec_job_status" />
+        <AssociationConnector Association="trackdocModel.FK_speechrec_status_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_speechrec_status_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_template_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_template_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_template_templateType" />
+        <AssociationConnector Association="trackdocModel.FK_template_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_template_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_user_signature_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_user_signature_last_modified_by" />
+        <AssociationConnector Association="trackdocModel.FK_user_signature_user" />
+        <AssociationConnector Association="trackdocModel.FK_user_type_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_user_type_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_typing_assignment_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_typing_assignment_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_users_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_users_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_work_assignment_defaults_created_user" />
+        <AssociationConnector Association="trackdocModel.FK_work_assignment_defaults_modified_user" />
+        <AssociationConnector Association="trackdocModel.FK_workflow_step_created_by" />
+        <AssociationConnector Association="trackdocModel.FK_workflow_step_last_modified_by" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
