@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace AudioConverterService
@@ -20,7 +15,7 @@ namespace AudioConverterService
             var eventLog = GetEventLog();
 
             try
-            {               
+            {
                 var service = new ZyAudioConverter(eventLog);
 
                 if (Environment.UserInteractive)

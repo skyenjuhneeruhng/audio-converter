@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -29,7 +27,7 @@ namespace AudioConverterService
         /// <returns></returns>
         public static async Task InvokeRequestResponseService(String script)
         {
-            string requestUrl =  ConfigurationManager.AppSettings["AutoPunctuationApiUrl"];  // Get url from App.config file.
+            string requestUrl = ConfigurationManager.AppSettings["AutoPunctuationApiUrl"];  // Get url from App.config file.
 
             if (string.IsNullOrWhiteSpace(requestUrl))
             {
@@ -53,14 +51,14 @@ namespace AudioConverterService
                 {
                     Response = await client.PostAsJsonAsync(requestUrl, wsinput);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     IsSuccessfully = false;
                     ApiErrorMessage = ex.ToString();
                 }
 
                 //Response = await client.PostAsJsonAsync(requestUrl, wsinput);
-                if(Response != null)   // If connected to the API server.
+                if (Response != null)   // If connected to the API server.
                 {
                     if (Response.IsSuccessStatusCode)
                     {
@@ -81,7 +79,7 @@ namespace AudioConverterService
                         ApiErrorMessage = sb.ToString();
                     }
                 }
-                
+
             }
         }
 

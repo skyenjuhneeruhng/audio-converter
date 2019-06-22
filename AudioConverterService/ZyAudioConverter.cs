@@ -1,32 +1,28 @@
-﻿using System;
-using System.Collections;
+﻿using interop.OlyAudCom;
+using Microsoft.WindowsAPICodePack.Shell;
+using PIA.DpmCtrlLib;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.ServiceProcess;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Configuration;
-using interop.OlyAudCom;
-using Microsoft.WindowsAPICodePack.Shell;
-using System.Net;
-using System.Xml;
-using System.Net.Mail;
-
 using TrackdocDbEntityFramework;
-using PIA.DpmCtrlLib;
 
 namespace AudioConverterService
 {
     public partial class ZyAudioConverter : ServiceBase
     {
-        private System.Threading.Thread procThread;
-        private volatile bool terminate = false;
+        private CancellationTokenSource _cancellationTokenSource;
+        private Task _etlTask;
+
+        //private System.Threading.Thread procThread;
+        //private volatile bool terminate = false;
         private string connectionString;
         private string ffmpegExe;
         private string tempDirectoryPath;
@@ -48,14 +44,37 @@ namespace AudioConverterService
         private OAFileControl olympusConverter;
         private DPMControl philipsConverter;
         private Mail mail;
+        SpeechRecognition _speechRecognition;
 
         public void StartConsole()
         {
-            OnStart(null);
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            WriteEventLogEntry("Service started.", EventLogEntryType.Information);
+            mail.SendMail("Audio Processor Service started."); // Send mail to notify that service started
+
+            _etlTask = Task.Run(
+                async () =>
+                {
+                    CancellationToken token = _cancellationTokenSource.Token;
+                    CheckConfig();//Check prerequsites. (ffmpeg.exe particularly)
+                    _speechRecognition = new SpeechRecognition(eventLog, mail, tempDirectoryPath);
+                    while (!token.IsCancellationRequested)
+                    {
+                        await ProcessTask(); // An ETL Job to read from DB to update another DB
+
+                        await Task.Delay(TimeSpan.FromMinutes(1), token);
+                    }
+                    WriteEventLogEntry("Service stopped gracefully.", EventLogEntryType.Information);
+                    mail.SendMail("Audio Processor Service Stopped...");
+                    //terminate = false;
+                });
         }
 
         public void StopConsole()
         {
+            _cancellationTokenSource.Cancel();
+
             OnStop();
         }
 
@@ -68,21 +87,6 @@ namespace AudioConverterService
             public string UnconvertedPath { get; set; }
             public string IntermediateWavPath { get; set; }
             public string FinalPath { get; set; }
-
-            //public bool FinalPathIsRemote
-            //{
-            //    get
-            //    {
-            //        if (string.IsNullOrWhiteSpace(FinalPath))
-            //        {
-            //            throw new Exception("FinalPathIsRemote cannot be checked because FinalPath is null.");
-            //        }
-            //        else
-            //        {
-            //            return new Uri(this.FinalPath).IsUnc;
-            //        }
-            //    }
-            //}
         }
 
         public ZyAudioConverter(EventLog eventLog)
@@ -155,89 +159,90 @@ namespace AudioConverterService
         /// <summary>
         /// watcher thread method. Here all the processing happens.
         /// </summary>
-        public async void watcherThread()
+        public async Task ProcessTask()
         {
             try
             {
-                int Counter = 0;
+                // int Counter = 0;
                 //ThreadPool.SetMaxThreads(6, 6); //set the max number of concurrent threads
-                CheckConfig();//Check prerequsites. (ffmpeg.exe particularly)
-                var speechRecognition = new SpeechRecognition(eventLog, mail, tempDirectoryPath);
+                //CheckConfig();//Check prerequsites. (ffmpeg.exe particularly)
+                //var speechRecognition = new SpeechRecognition(eventLog, mail, tempDirectoryPath);
 
                 //starting the continious loop to watch for the new jobs. Use volatile boolean variable terminate to stop gracefully
-                while (!terminate)
+                //while (!terminate)
+                //{
+                //    if (Counter >= idleLoopsNo)
+                //    {
+                //        Counter = 0;
+
+                try
                 {
-                    if (Counter >= idleLoopsNo)
+                    using (var db = new trackdocEntities())
                     {
-                        Counter = 0;
-
-                        try
+                        _speechRecognition.HandleCompleted(db);
+                        
+                        var audioIdsToConvert = GetJobList(db);//.OrderByDescending(x => x).ToList();
+                        var pendingSpeechRecognitionJobs = _speechRecognition.GetPendingSpeechRecJobs(db);
+                        var pendingSpeechRecAudioIds = _speechRecognition.GetPendingSpeechRecJobIds(pendingSpeechRecognitionJobs);
+                        var audioIdsToDownload = audioIdsToConvert.Union(pendingSpeechRecAudioIds).Distinct().OrderBy(a => a);
+                        var audioMetadatas = GetAudioMetadatas(audioIdsToDownload, db);
+                       
+                        foreach (var audioId in audioIdsToDownload)
                         {
-                            using (var db = new trackdocEntities())
+                            AudioMetadata audioMetadata = null;
+
+                            try
                             {
-                                speechRecognition.HandleCompleted(db);
-                                var audioIdsToConvert = GetJobList().OrderByDescending(x => x).ToList();
-                                var pendingSpeechRecognitionJobs = speechRecognition.GetPendingSpeechRecJobs(db);
-                                var pendingSpeechRecAudioIds = speechRecognition.GetPendingSpeechRecJobIds(pendingSpeechRecognitionJobs);
-                                var audioIdsToDownload = audioIdsToConvert.Union(pendingSpeechRecAudioIds).Distinct().OrderBy(a => a);
-                                var audioMetadatas = GetAudioMetadatas(audioIdsToDownload, db);
+                                audioMetadata = audioMetadatas.First(a => a.audioId == audioId);
+                                await Shared.StreamBlobToFile(connectionString, audioId, audioMetadata.UnconvertedPath, eventLog);
 
-                                foreach (var audioId in audioIdsToDownload)
+                                if (audioMetadata.OriginalAudioType == "dss" || audioMetadata.OriginalAudioType == "ds2")
                                 {
-                                    AudioMetadata audioMetadata = null;
+                                    ConvertToWav(audioMetadata);
+                                }
 
-                                    try
-                                    {
-                                        audioMetadata = audioMetadatas.First(a => a.audioId == audioId);
-                                        await Shared.StreamBlobToFile(connectionString, audioId, audioMetadata.UnconvertedPath, eventLog);
+                                if (pendingSpeechRecAudioIds.Contains(audioId))
+                                {
+                                    var speechRecJob = pendingSpeechRecognitionJobs.First(s => s.audio_id == audioId);
+                                    _speechRecognition.InitiateSpeechRecProcessing(speechRecJob, audioMetadata.UnconvertedPath, db);
+                                }
 
-                                        if (audioMetadata.OriginalAudioType == "dss" || audioMetadata.OriginalAudioType == "ds2")
-                                        {
-                                            ConvertToWav(audioMetadata);
-                                        }
-
-                                        if (pendingSpeechRecAudioIds.Contains(audioId))
-                                        {
-                                            var speechRecJob = pendingSpeechRecognitionJobs.First(s => s.audio_id == audioId);
-                                            speechRecognition.InitiateSpeechRecProcessing(speechRecJob, audioMetadata.UnconvertedPath, db);
-                                        }
-
-                                        if (audioIdsToConvert.Contains(audioId))
-                                        {
-                                            ConvertAudio(audioMetadata);
-                                        }
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        SetErrorStatus(audioId);
-                                        Elmah.CreateLogEntry(ex, eventLog);
-                                        WriteEventLogEntry("Processing of audio " + audioId + " failed: " + ex.ToString(), EventLogEntryType.Error);
-                                        mail.SendMail("Error processing audio " + audioId + ": " + ex.Message);
-                                    }
-                                    finally
-                                    {
-                                        DeleteIfExists(audioMetadata?.UnconvertedPath);
-                                        DeleteIfExists(audioMetadata?.IntermediateWavPath);
-                                        DeleteIfExists(audioMetadata?.FinalPath);
-                                    }
+                                if (audioIdsToConvert.Contains(audioId))
+                                {
+                                    ConvertAudio(audioMetadata,db);
                                 }
                             }
+                            catch (Exception ex)
+                            {
+                                SetErrorStatus(audioId);
+                                Elmah.CreateLogEntry(ex, eventLog);
+                                WriteEventLogEntry("Processing of audio " + audioId + " failed: " + ex.ToString(), EventLogEntryType.Error);
+                                mail.SendMail("Error processing audio " + audioId + ": " + ex.Message);
+                            }
+                            finally
+                            {
+                                DeleteIfExists(audioMetadata?.UnconvertedPath);
+                                DeleteIfExists(audioMetadata?.IntermediateWavPath);
+                                DeleteIfExists(audioMetadata?.FinalPath);
+                            }
+                        }
+                    }
 
-                            PurgeOldAudios();
-                        }
-                        catch (Exception ex)
-                        {
-                            Elmah.CreateLogEntry(ex, eventLog);
-                            WriteEventLogEntry(ex.ToString(), EventLogEntryType.Error);
-                            mail.SendMail("Audio Processor Service Error: " + ex.Message);
-                        }
-                    }
-                    else
-                    {
-                        ++Counter;
-                        Thread.Sleep(1000);
-                    }
+                    PurgeOldAudios();
                 }
+                catch (Exception ex)
+                {
+                    Elmah.CreateLogEntry(ex, eventLog);
+                    WriteEventLogEntry(ex.ToString(), EventLogEntryType.Error);
+                    mail.SendMail("Audio Processor Service Error: " + ex.Message);
+                }
+                //}
+                //else
+                //{
+                //    ++Counter;
+                //    Thread.Sleep(1000);
+                //}
+                // }
             }
             catch (Exception ex1)
             {
@@ -247,10 +252,6 @@ namespace AudioConverterService
                 //Environment.Exit(1);
                 throw new InvalidOperationException("Exception in service", ex1); // this cause the service to stop with status as failed
             }
-
-            WriteEventLogEntry("Service stopped gracefully.", EventLogEntryType.Information);
-            mail.SendMail("Audio Processor Service Stopped...");
-            terminate = false;
         }
 
         /// <summary>
@@ -318,7 +319,7 @@ namespace AudioConverterService
             }
         }
 
-        private void ConvertAudio(AudioMetadata audioMetadata)
+        private void ConvertAudio(AudioMetadata audioMetadata, trackdocEntities db)
         {
             if (Shared.ValidFfmpegExtensions.Contains(audioMetadata.OriginalAudioType))
             {
@@ -334,7 +335,7 @@ namespace AudioConverterService
                 throw new Exception("Unsupported audio format.");
             }
 
-            UpdateDB(audioMetadata);
+            UpdateDB(audioMetadata,db);
         }
 
         /// <summary>
@@ -372,34 +373,39 @@ namespace AudioConverterService
 
         }
 
-        private void UpdateDB(AudioMetadata audioMetadata)
+        private void UpdateDB(AudioMetadata audioMetadata, trackdocEntities db)
         {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                using (var command = new SqlCommand("[dbo].[usp_update_audio_and_job_new]", conn))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
+            var status = db.usp_update_audio_and_job_new(audioMetadata.audioId, "mp3", GetMp3Bitrate(audioMetadata.FinalPath),
+                audioMetadata.FinalPath, audioMetadata.Filename + ".mp3", GetMp3DurationInSeconds(audioMetadata.FinalPath));
 
-                    command.Parameters.Add(new SqlParameter("@audioid", audioMetadata.audioId));
-                    command.Parameters.Add(new SqlParameter("@audiofilepath", audioMetadata.FinalPath));
-                    command.Parameters.Add(new SqlParameter("@audio_type", "mp3"));
-                    command.Parameters.Add(new SqlParameter("@bitrate", GetMp3Bitrate(audioMetadata.FinalPath)));
-                    command.Parameters.Add(new SqlParameter("@length", GetMp3DurationInSeconds(audioMetadata.FinalPath)));
-                    command.Parameters.Add(new SqlParameter("@filename", audioMetadata.Filename + ".mp3"));
+            if ((status != 0)) throw new Exception("Error while updating db records...");
 
-                    command.Parameters.Add(new SqlParameter("@RET_VAL", SqlDbType.Int));
-                    command.Parameters["@RET_VAL"].Direction = ParameterDirection.ReturnValue;
+            //using (var conn = new SqlConnection(connectionString))
+            //{
+            //    using (var command = new SqlCommand("[dbo].[usp_update_audio_and_job_new]", conn))
+            //    {
+            //        command.CommandType = CommandType.StoredProcedure;
 
-                    command.CommandTimeout = 0;// Disable command timeout.
-                    conn.Open();
+            //        command.Parameters.Add(new SqlParameter("@audioid", audioMetadata.audioId));
+            //        command.Parameters.Add(new SqlParameter("@audiofilepath", audioMetadata.FinalPath));
+            //        command.Parameters.Add(new SqlParameter("@audio_type", "mp3"));
+            //        command.Parameters.Add(new SqlParameter("@bitrate", GetMp3Bitrate(audioMetadata.FinalPath)));
+            //        command.Parameters.Add(new SqlParameter("@length", GetMp3DurationInSeconds(audioMetadata.FinalPath)));
+            //        command.Parameters.Add(new SqlParameter("@filename", audioMetadata.Filename + ".mp3"));
 
-                    command.ExecuteScalar();
-                    var retVal = (int)command.Parameters["@RET_VAL"].Value;
-                    conn.Close();
+            //        command.Parameters.Add(new SqlParameter("@RET_VAL", SqlDbType.Int));
+            //        command.Parameters["@RET_VAL"].Direction = ParameterDirection.ReturnValue;
 
-                    if ((retVal != 0)) throw new Exception("Error while updating db records...");
-                }
-            }
+            //        command.CommandTimeout = 0;// Disable command timeout.
+            //        conn.Open();
+
+            //        command.ExecuteScalar();
+            //        var retVal = (int)command.Parameters["@RET_VAL"].Value;
+            //        //conn.Close();
+
+            //        if ((retVal != 0)) throw new Exception("Error while updating db records...");
+            //    }
+            //}
 
             WriteEventLogEntry("Updated audio " + audioMetadata.audioId + " in database with converted file at " + audioMetadata.FinalPath + ".", EventLogEntryType.Information);
             File.Delete(audioMetadata.FinalPath);
@@ -434,38 +440,35 @@ namespace AudioConverterService
 
                 var seconds = rawDuration / 10000000;
                 return int.Parse(seconds.ToString());
-            }        
+            }
         }
 
         private IEnumerable<AudioMetadata> GetAudioMetadatas(IEnumerable<int> audioIds, TrackdocDbEntityFramework.trackdocEntities db)
         {
             WriteDebugEntry("Initiating retrieval of audio metadata from database.");
             var audioMetadatas = new List<AudioMetadata>();
-
-            // Not doing a single select here since there could be a lot and it won't work as an IQueryable anyway since some of the properties are set manually:
-            foreach (var audioId in audioIds)
+            //Shakti: Saving 400 ms per record here ..For test 9 records it will take 400 ms compare to 4007 in old code
+            var audioInfos = db.audios
+                    .Where(a => audioIds.Contains(a.id)).GroupBy(a => a.id).Select(a => a.FirstOrDefault())
+                    .Select(a => new {Id = a.id , Filename = a.filename, OriginalAudioType = a.audio_type.name.ToLower() }).ToList();
+            foreach (var audioInfo in audioInfos)
             {
-                var audioInfo = db.audios
-                    .Where(a => a.id == audioId)
-                    .Select(a => new { Filename = a.filename, OriginalAudioType = a.audio_type.name.ToLower() })
-                    .FirstOrDefault();
-
                 if (audioInfo != null)
                 {
                     var audioMetadata = new AudioMetadata();
 
-                    audioMetadata.audioId = audioId;
-                    audioMetadata.TempWorkingFilename = audioId.ToString();
+                    audioMetadata.audioId = audioInfo.Id;
+                    audioMetadata.TempWorkingFilename = audioInfo.Id.ToString();
                     audioMetadata.Filename = audioInfo.Filename;
                     audioMetadata.OriginalAudioType = audioInfo.OriginalAudioType;
-                    audioMetadata.UnconvertedPath = Path.Combine(tempDirectoryPath, audioId + "." + audioMetadata.OriginalAudioType);
-                    audioMetadata.IntermediateWavPath = Path.Combine(tempDirectoryPath, audioId + ".wav");
-                    audioMetadata.FinalPath = outputPath + audioId + ".mp3";
+                    audioMetadata.UnconvertedPath = Path.Combine(tempDirectoryPath, audioInfo.Id + "." + audioMetadata.OriginalAudioType);
+                    audioMetadata.IntermediateWavPath = Path.Combine(tempDirectoryPath, audioInfo.Id + ".wav");
+                    audioMetadata.FinalPath = outputPath + audioInfo.Id + ".mp3";
 
                     audioMetadatas.Add(audioMetadata);
                 }
             }
-
+    
             WriteDebugEntry("Successfully retrieved metatdata of " + audioMetadatas.Count + " audios from database.");
             return audioMetadatas;
         }
@@ -532,7 +535,7 @@ namespace AudioConverterService
             {
                 sourcePath = audioMetadata.UnconvertedPath;
             }
-                
+
             //var finalPathIsRemote = audioMetadata.FinalPathIsRemote;
             //var finalPathIsRemote = true;// Hard-coding to true for now in case network drive is mapped to a local path.
 
@@ -570,32 +573,35 @@ namespace AudioConverterService
         /// by executing the stored procedure
         /// </summary>
         /// <returns></returns>
-        private List<int> GetJobList()
+        private List<int> GetJobList(trackdocEntities db)
         {
+            
             WriteDebugEntry("Initiating retrieval of IDs of jobs in Converting status from database.");
 
-            using (var conn = new SqlConnection(connectionString))
-            using (var command = new SqlCommand("[dbo].[usp_get_converting_jobs]", conn)
-            {
-                CommandType = CommandType.StoredProcedure
-            })
-            {
+            var jobList = db.usp_get_converting_jobs().Select(a => a.Value).OrderByDescending(x => x).ToList();
+            //using (var conn = new SqlConnection(connectionString))
+            //using (var command = new SqlCommand("[dbo].[usp_get_converting_jobs]", conn)
+            //{
+            //    CommandType = CommandType.StoredProcedure
+            //})
+            //{
 
-                conn.Open();
+            //    conn.Open();
 
-                var jobList = new List<int>();
+            //    var jobList = new List<int>();
 
-                var reader = command.ExecuteReader();
+            //    var reader = command.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    jobList.Add((int)reader[0]);
-                }
+            //    while (reader.Read())
+            //    {
+            //        jobList.Add((int)reader[0]);
+            //    }
 
-                WriteDebugEntry("Successfully retrieved IDs of " + jobList.Count + " jobs in Converting status from database.");
-                return jobList;
-            }
-
+            //    WriteDebugEntry("Successfully retrieved IDs of " + jobList.Count + " jobs in Converting status from database.");
+            //    return jobList;
+            //}
+            WriteDebugEntry("Successfully retrieved IDs of " + jobList.Count + " jobs in Converting status from database.");
+            return jobList;
         }
 
         private void DeleteIfExists(string filePath)
@@ -639,14 +645,14 @@ namespace AudioConverterService
         /// Method called when the service is being started. It is overriden to start processing thread.
         /// </summary>
         /// <param name="args"></param>
-        protected override void OnStart(string[] args)
-        {
-            procThread = new System.Threading.Thread(new ThreadStart(watcherThread)); //create processing thread
-            procThread.Start(); //start processing thread
-            base.OnStart(args);
-            WriteEventLogEntry("Service started.", EventLogEntryType.Information);
-            mail.SendMail("Audio Processor Service started."); // Send mail to notify that service started
-        }
+        //protected override void OnStart(string[] args)
+        //{
+        //    procThread = new System.Threading.Thread(new ThreadStart(watcherThread)); //create processing thread
+        //    procThread.Start(); //start processing thread
+        //    base.OnStart(args);
+        //    WriteEventLogEntry("Service started.", EventLogEntryType.Information);
+        //    mail.SendMail("Audio Processor Service started."); // Send mail to notify that service started
+        //}
 
 
         /// <summary>
@@ -659,8 +665,8 @@ namespace AudioConverterService
             if (_asyncException != null)
                 throw new InvalidOperationException("Unhandled exception in service", _asyncException);
 
-            terminate = true; // notify the processing thread to exit the loop
-            procThread.Join(); // waiting the processing thread stops
+        //    terminate = true; // notify the processing thread to exit the loop
+                              // procThread.Join(); // waiting the processing thread stops
             base.OnStop();
             WriteEventLogEntry("Service stopped.", EventLogEntryType.Information);
         }

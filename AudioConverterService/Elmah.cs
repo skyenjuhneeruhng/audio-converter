@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace AudioConverterService
 {
@@ -53,7 +48,7 @@ namespace AudioConverterService
                     }
                 }
             }
-            catch(Exception metaException)
+            catch (Exception metaException)
             {
                 Shared.WriteEventLogEntry(eventLog, "Error writing ELMAH log entry: " + metaException.ToString(), EventLogEntryType.Error);
             }
