@@ -127,10 +127,9 @@
     <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
       <HintPath>..\packages\Grpc.Core.1.16.0\lib\net45\Grpc.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.OlyAudCom, Version=1.3.0.0, Culture=neutral, PublicKeyToken=43728317ce187ee6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Interop.OlyAudCom">
+      <HintPath>.\Interop.OlyAudCom.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>Libs\Interop.OlyAudCom.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAPICodePack-Core.1.1.0.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -145,10 +144,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PIA.DpmCtrlLib">
-      <HintPath>..\..\..\..\..\Desktop\dpmsdk_swt_3.8.380.14\x86\Registered installation\Redist\Bin\PIA.DpmCtrlLib.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -197,7 +192,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="ClassDiagram1.cd" />
-    <None Include="Google\GoogleServiceAccountKey.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -221,11 +215,17 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ffmpeg\ffmpeg.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Libs\Interop.OlyAudCom.dll" />
-    <Content Include="Libs\PIA.DpmCtrlLib.dll" />
+    <COMReference Include="DPMCONTROLLib">
+      <Guid>{FCE552F7-3879-486F-BC3F-E247F0215E7D}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="readme.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

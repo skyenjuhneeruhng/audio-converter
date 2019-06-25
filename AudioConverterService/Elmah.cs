@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Security;
-using TrackdocDbEntityFramework;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
 
 namespace AudioConverterService
 {
@@ -15,38 +19,44 @@ namespace AudioConverterService
         {
             try
             {
-                using (trackdocEntities trackdocEntities = new trackdocEntities())
+                using (var conn = new SqlConnection(ConfigurationManager.AppSettings["connectionString"]))
                 {
-                    ELMAH_Error elmahError = new ELMAH_Error();
+                    using (var command = new SqlCommand())
+                    {
+                        command.Connection = conn;
+                        command.CommandType = CommandType.Text;
 
-                    var errorId = Guid.NewGuid();
-                    var host = Dns.GetHostName();
-                    DateTime dateTime = DateTime.UtcNow;
+                        command.CommandText = "INSERT INTO ELMAH_Error (ErrorId, Application, Host, Type, Source, Message, [User], StatusCode, TimeUtc, AllXml)" +
+                            " VALUES (@id, @application, @host, @type, @source, @message, @user, @statuscode, @timeUtc, @allxml)";
 
-                    elmahError.ErrorId = errorId;
-                    elmahError.Host = Shared.TruncateString(host, 50);
-                    elmahError.Application = "TrackDoc";
+                        var errorId = Guid.NewGuid();
+                        var host = Dns.GetHostName();
+                        DateTime dateTime = DateTime.UtcNow;
 
-                    elmahError.Type = Shared.TruncateString(ex.GetType().ToString(), 100);
-                    elmahError.Source = Shared.TruncateString(ex.Source, 60) ?? string.Empty;
-                    elmahError.Message = Shared.TruncateString("Audio Processor Service: " + ex.Message, 500);
-                    elmahError.User = string.Empty;
-                    elmahError.StatusCode = 0;
-                    elmahError.TimeUtc = dateTime.ToUniversalTime();
-                    var xml = string.Format("<error application=\"{0}\" host=\"{1}\" message=\"{2}\" source=\"{3}\" detail=\"{4}\" user=\"{5}\" time=\"{6}\" statusCode=\"{7}\"> </error>",
-                                   "TrackDoc", host, XmlEscape(ex.Message), XmlEscape(ex.Source), XmlEscape(ex.ToString()), "", dateTime.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"), 0);
+                        command.Parameters.AddWithValue("@id", errorId);
+                        command.Parameters.AddWithValue("@application", "TrackDoc");
+                        command.Parameters.AddWithValue("@host", Shared.TruncateString(host, 50));
+                        command.Parameters.AddWithValue("@type", Shared.TruncateString(ex.GetType().ToString(), 100));
+                        command.Parameters.AddWithValue("@source", Shared.TruncateString(ex.Source, 60) ?? string.Empty);
+                        command.Parameters.AddWithValue("@message", Shared.TruncateString("Audio Processor Service: " + ex.Message, 500));
+                        command.Parameters.AddWithValue("@user", string.Empty);
+                        command.Parameters.AddWithValue("@statuscode", 0);
+                        command.Parameters.AddWithValue("@timeUtc", dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff"));
 
-                    elmahError.AllXml = xml;
+                        var xml = string.Format("<error application=\"{0}\" host=\"{1}\" message=\"{2}\" source=\"{3}\" detail=\"{4}\" user=\"{5}\" time=\"{6}\" statusCode=\"{7}\"> </error>",
+                            "TrackDoc", host, XmlEscape(ex.Message), XmlEscape(ex.Source), XmlEscape(ex.ToString()), "", dateTime.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"), 0);
 
-                    trackdocEntities.ELMAH_Error.Add(elmahError);
-                    trackdocEntities.SaveChanges();
+                        command.Parameters.AddWithValue("@allxml", xml);
+
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
-            catch (Exception metaException)
+            catch(Exception metaException)
             {
                 Shared.WriteEventLogEntry(eventLog, "Error writing ELMAH log entry: " + metaException.ToString(), EventLogEntryType.Error);
             }
-
         }
 
         private static string XmlEscape(string unescapedString)

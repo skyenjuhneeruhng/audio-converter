@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AudioConverterService
@@ -125,5 +127,76 @@ namespace AudioConverterService
                 }
             }
         }
+
+        //private static void StreamBlobToFile(string connectionString, int audioId, string outputPath)
+        //{
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        connection.Open();
+        //        int chunkFirstByteIndex = 0;
+        //        int chunkSizeInBytes = 256000;// 256KB buffer.
+        //        var lobLastByteIndex = GetAudioLengthInBytes(audioId - 1);// Subtracting 1 because indexes start at 0.
+        //        const string commandText = @"SELECT SUBSTRING(audio_lob, @start, @length) FROM audio WITH (NOLOCK) WHERE id = @audioId";
+
+        //        using (var outputStream = File.OpenWrite(outputPath))
+        //        {
+        //            while (chunkFirstByteIndex <= lobLastByteIndex)
+        //            {
+        //                int chunkLastByteIndex = chunkFirstByteIndex + (chunkSizeInBytes - 1);
+
+        //                if (chunkLastByteIndex > lobLastByteIndex)
+        //                {
+        //                    chunkSizeInBytes = GetChunkSizeInBytes(chunkFirstByteIndex, lobLastByteIndex);
+        //                }
+
+        //                using (SqlCommand command = new SqlCommand(commandText, connection))
+        //                {
+        //                    command.Parameters.AddWithValue("@audioId", audioId);
+        //                    command.Parameters.AddWithValue("@start", chunkFirstByteIndex + 1);// Adding 1 here because SQL SUBSTRING is 1-based, not 0-based.
+        //                    command.Parameters.AddWithValue("@length", chunkSizeInBytes);
+
+        //                    using (SqlDataReader reader = command.ExecuteReader())
+        //                    {
+        //                        if (reader.Read())// Only should be returning a single row, so only need to call Read() once.
+        //                        {
+        //                            byte[] buffer = new byte[chunkSizeInBytes];
+        //                            reader.GetBytes(0, 0, buffer, 0, chunkSizeInBytes);// Only returning a single field.
+        //                            outputStream.Write(buffer, chunkFirstByteIndex, chunkSizeInBytes);
+        //                            outputStream.Flush();
+        //                        }
+        //                        else// No rows were returned.
+        //                        {
+        //                            throw new Exception("Couldn't read audio LOB data from database.");
+        //                        }
+        //                    }
+        //                }
+
+        //                chunkFirstByteIndex = chunkLastByteIndex + 1;
+        //            }
+        //        }
+        //    }
+        //}
+
+        ///// <summary>
+        ///// Returns the size in bytes of data starting at the given chunkFirstByteIndex and ending at the given chunkLastByteIndex.
+        ///// </summary>
+        ///// <param name="chunkFirstByteIndex"></param>
+        ///// <param name="chunkLastByteIndex"></param>
+        ///// <returns></returns>
+        //private static int GetChunkSizeInBytes(int chunkFirstByteIndex, int chunkLastByteIndex)
+        //{
+        //    return chunkLastByteIndex - chunkFirstByteIndex + 1;// Adding 1 because it's an inclusive range.
+        //}
+
+        //private static int GetAudioLengthInBytes(int audioId)
+        //{
+        //    using (var db = new TrackdocDbEntityFramework.trackdocEntities())
+        //    {
+        //        return db.audios
+        //            .Where(a => a.id == audioId)
+        //            .Select(a => System.Data.Entity.SqlServer.SqlFunctions.DataLength(a.audio_lob).Value)
+        //            .FirstOrDefault();
+        //    }
+        //}
     }
 }

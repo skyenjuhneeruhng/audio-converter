@@ -18,7 +18,6 @@
                 components.Dispose();
             }
             base.Dispose(disposing);
-            _cancellationTokenSource.Dispose();
         }
 
         #region Component Designer generated code

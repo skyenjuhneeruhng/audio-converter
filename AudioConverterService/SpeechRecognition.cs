@@ -2,16 +2,21 @@
 using Google.Cloud.Speech.V1;
 using Google.Cloud.Storage.V1;
 using Grpc.Auth;
-using Microsoft.WindowsAPICodePack.Shell;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using TrackdocDbEntityFramework;
+using System.Data.Entity;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data.Entity.SqlServer;
+using System.Diagnostics;
+using Microsoft.WindowsAPICodePack.Shell;
+using Newtonsoft.Json.Linq;
 
 namespace AudioConverterService
 {
@@ -104,7 +109,7 @@ namespace AudioConverterService
                             //speechRecJob.date_last_modified = DateTime.Now;
 
                             string inputScript = ConvertGoogleJsonStr(speechRecJob.output);
-
+                            
                             AutoPunctuationFlask.InvokeRequestResponseService(inputScript).Wait();
                             if (AutoPunctuationFlask.IsSuccessfully) //AutoPunctuationFlask.Response.IsSuccessStatusCode) 
                             {
